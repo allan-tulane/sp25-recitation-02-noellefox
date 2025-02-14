@@ -38,9 +38,13 @@ where $W(1) = 1$.
 - [ ] 4. (2 point) Now, derive the asymptotic behavior of $W(n)$ using $f(n) = 1$, $f(n) = \log n$ and $f(n) = n$. Then, generate actual values for $W(n)$ for your code and confirm that the trends match your derivations.
 
 **TODO: your answer goes here**
-- _When f(n) = 1_ the work at each step will be constant and because recursion is a 'divide and conquer' algorithm growth will either by logarithmic or polynomial depending on the values of a and b. This will be the slowest growth of the three because the work at each step is minimal.
-- _When f(n) = log(n_) the work at each step will increase slightly because the log factor adds extra growth, though recursion still takes precedence.
-- _When f(n) = n_ the work will increase linearly, making it the fastest growth of the three. Even while the problem size decreases throughout recursion the total work is so large that it grows very fast.
+
+**To derive the asymptotic behavior of W(n) when f(n) = 1, f(n) = logn, and f(n) = n I used the values a = 2 and b = 2 to create formulas in terms of big O. Because logb(a) utilizing my chosen values is equal to one I will be comparing f(n) to n^1 to derive the asymptotic behavior.**
+
+- _When f(n) = 1_ The reccurence is leaf-dominated because the root level only does one unit of work while each deeper level does more work as the number of subproblems doubles. Thus, most of the work happens in the leaves and the asymptotic behavior can be represented with O(n).
+- _When f(n) = logn_ The recurence is also a leaf-dominated function because logn is very small. The root will only be equal to logn and while moving deeper into the tree it breaks up into more subproblems thus producing more work than logn. Because the deeper you move into the tree the more work is done, the asymptotic behavior will be represented with O(n).
+- _When f(n) = n_ The recurence would be considered balance because the work at the root is equivalent to the work at each deeper level. The work at the root in this case is equal to n, when you move to level 1 the work becomes equal to (n/2) + (n/2) which is also equal to n. Thus, the recursion is balanced and the asymptotic behavior can be represented with O(n logn) because n is the maximum cost per level and logn is the number of levels.
+  
 - Utilizing the test_work function I was able to test the growth of each of the three functions. These are the results I obtained:
   
         assert work_calc(8, 2, 2, lambda n: 1) == 15
@@ -52,7 +56,7 @@ where $W(1) = 1$.
         assert work_calc(8, 2, 2, lambda n: n) == 32
         assert work_calc(16, 2, 2, lambda n: n) == 80
   
-  ^These actual values proved the derived aymptotic behavior trend that     work will increase from f(n) = 1 -> f(n) = logn -> f(n) = n. With the    change from f(n) = 1 to f(n) = logn being minimal but prevalent and      the change from f(n) = logn to f(n) = n being much more drastic. 
+  ^These actual values proved the derived aymptotic behavior trend that     work will increase from f(n) = 1 -> f(n) = logn -> f(n) = n. With the change from f(n) = 1 to f(n) = logn being minimal but prevalent and the change from f(n) = logn to f(n) = n being much more drastic. 
    
 
 
@@ -63,3 +67,6 @@ where $W(1) = 1$.
 - [ ] 6. (3 points) $W(n)$ is meant to represent the running time of some recursive algorithm. Suppose we always had $a$ processors available to us and we wanted to compute the span of the same algorithm. Implement the function `span_calc` to compute the empirical span, where the work of the algorithm is given by $W(n)$. Implement `test_compare_span` to create a new comparison function for comparing span functions. Derive the asymptotic expressions for the span of the recurrences you used in problem 4 above. Confirm that everything matches up as it should. 
 
 **TODO: your answer goes here**
+- _For f(n) = 1_ when the asymptotic behavior is O(n) the span will be equivalent to O(logn). This is attained by following the single longest path, but because each level does constant additional work and to get to the base case we use 2^i = n or i = log2(n). Because each level only adds O(1) work and the total number of levels is O(log n) we get the span O(logn).
+- _For f(n) = logn_ when the asymptotic behavior is O(n) the span will be equivalent to O(log^2(n)). Because the total number of levels is again O(logn) and each level adds O(logn) work we get the span O(log^2(n))
+- _For f(n) = n_ when the asymptotic behavior is O(n logn) the span will be equivalent to O(n). Because again there are a total of O(logn) levels and the most work is done at the root, which does O(n) work, that is the single largest piece of work in the chain and the Span is equal to O(n). 

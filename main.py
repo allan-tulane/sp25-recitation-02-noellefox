@@ -49,7 +49,7 @@ def span_calc(n, step, a, func):
 	recursive_span = span_calc(n // step, step, a, func)
 
 	# Compute the total span from the work and the span of the recursive call combined 
-	return func(n) + recursive_span
+	return max(func(n), recursive_span)
 
 
 
